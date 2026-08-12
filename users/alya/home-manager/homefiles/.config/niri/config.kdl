@@ -247,6 +247,18 @@ window-rule {
     }
 }
 
+// honkers railway launcher
+window-rule {
+    match app-id="The Honkers Railway Launcher" title="^The Honkers Railway Launcher$"
+    open-floating true
+}
+
+// an anime game launcher
+window-rule {
+    match app-id="An Anime Game Launcher" title="^An Anime Game Launcher$"
+    open-floating true
+}
+
 
 binds {
     Mod+F1 allow-inhibiting=false { show-hotkey-overlay; }
