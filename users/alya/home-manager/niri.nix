@@ -25,6 +25,7 @@
       gnome-calculator
       vlc
       libprojectm
+      projectm_3
       resources
     ];
     
