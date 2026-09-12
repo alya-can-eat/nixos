@@ -16,6 +16,7 @@
     systemPackages = with pkgs; [
       hyprpolkitagent
       xwayland-satellite
+      udevil
     ];
   };
 
