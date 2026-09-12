@@ -24,8 +24,6 @@
       papers
       gnome-calculator
       vlc
-      libprojectm
-      projectm-sdl-cpp
       resources
     ];
     

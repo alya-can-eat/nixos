@@ -36,6 +36,7 @@ in
     ./homefiles.nix
     ./packages.nix
     ./shimeji.nix
+    ./projectm.nix
   ];
 
   home = {
