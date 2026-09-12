@@ -48,6 +48,10 @@
         source = ./homefiles/.config/niri/qs-notification.bash;
         executable = true;
       };
+      ".config/niri/vlc-audiocd.sh" = {
+        source = ./homefiles/.config/niri/vlc-audiocd.sh;
+        executable = true;
+      };
     };
   };
 }
