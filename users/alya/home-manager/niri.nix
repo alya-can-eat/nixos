@@ -2,14 +2,6 @@
 
 
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      vlc = prev.vlc.overrideAttrs (old: {
-        buildInputs = old.buildInputs ++ [ final.libprojectM ];
-      });
-    })
-  ];
-
   home = {
     packages = with pkgs; [
       brightnessctl
@@ -33,6 +25,7 @@
       gnome-calculator
       vlc
       libprojectm
+      projectm
       resources
     ];
     
