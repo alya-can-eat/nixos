@@ -64,15 +64,10 @@
         environment = {
           systemPackages = with pkgs; [
             looking-glass-client
+            citrix_workspace # dpev
           ];
         };
       ### GPU-Passthrough (end) ###
-
-        environment = {
-          systemPackages = with pkgs; [
-            citrix_workspace
-          ];
-        };
 
       ### EDUROAM ###
       networking = {
