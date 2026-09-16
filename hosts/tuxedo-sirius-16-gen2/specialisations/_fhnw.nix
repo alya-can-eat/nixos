@@ -68,6 +68,12 @@
         };
       ### GPU-Passthrough (end) ###
 
+        environment = {
+          systemPackages = with pkgs; [
+            citrix_workspace
+          ];
+        };
+
       ### EDUROAM ###
       networking = {
         nameservers = lib.mkForce [ ]; # let eduroam use it's own DNS.
