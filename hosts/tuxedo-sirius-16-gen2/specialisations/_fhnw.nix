@@ -64,15 +64,8 @@
         environment = {
           systemPackages = with pkgs; [
             looking-glass-client
-            citrix_workspace
           ];
         };
-
-      nixpkgs.config.permittedInsecurePackages = [
-        "libsoup-2.74.3" # citrix_workspace
-      ];
-
-
       ### GPU-Passthrough (end) ###
 
 
