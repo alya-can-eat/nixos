@@ -48,6 +48,7 @@ in
         scipy
         tabulate
         svgelements
+        jupyter
       ]))
     ];
   
