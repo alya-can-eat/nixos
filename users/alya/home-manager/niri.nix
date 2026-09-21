@@ -26,6 +26,7 @@
       vlc
       mpv
       resources
+      jupyter-all
     ];
     
     file = {
