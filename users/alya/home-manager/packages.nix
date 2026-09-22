@@ -39,6 +39,7 @@ in
       wl-clip-persist
       super-slicer
       mtkclient
+      pandoc
       (python3.withPackages (python-pkgs: with python-pkgs; [
         rich
         numpy
