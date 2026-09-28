@@ -40,6 +40,7 @@ in
       super-slicer
       mtkclient
       pandoc
+      zotero
       (python3.withPackages (python-pkgs: with python-pkgs; [
         rich
         numpy
