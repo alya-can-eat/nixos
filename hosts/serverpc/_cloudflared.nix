@@ -18,7 +18,7 @@
           "nextcloud.tschudibacon.com" = "http://localhost:8080";
           "minecraft.tschudibacon.com" = "tcp://localhost:25565";
           "dynmap.tschudibacon.com" = "http://localhost:25585";
-          "minecraft-b173.tschudibacon.com" = "tcp://localhost:35565";
+          "minecraft-b173.tschudibacon.com" = "tcp://localhost:35568";
           "dynmap-b173.tschudibacon.com" = "http://localhost:35585";
         };
 
