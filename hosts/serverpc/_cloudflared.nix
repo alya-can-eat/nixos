@@ -16,6 +16,10 @@
         ingress = {
           "nextcloud.tschudibacon.com/push/" = "http://localhost:7867";
           "nextcloud.tschudibacon.com" = "http://localhost:8080";
+          "minecraft.tschudibacon.com" = "tcp://localhost:25565";
+          "dynmap.tschudibacon.com" = "http://localhost:25585";
+          "minecraft-b173.tschudibacon.com" = "tcp://localhost:35565";
+          "dynmap-b173.tschudibacon.com" = "http://localhost:35585";
         };
 
         default = "http_status:404";
