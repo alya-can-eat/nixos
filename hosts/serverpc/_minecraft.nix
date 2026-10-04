@@ -64,6 +64,27 @@
         RestartSec = 5;
       };
     };
+    minecraft_r164-server = {
+      description = "Minecraft Release 1.6.4 Server";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "minecraftuser";
+        Group = "minecraftgroup";
+        WorkingDirectory = "/data/minecraft_r164";
+        TimeoutStopSec = "180s";
+        SuccessExitStatus = "143";
+        StandardInput = "tty";
+        StandardOutput = "tty";
+        StandardError = "tty";
+        TTYPath = "/dev/tty11";
+        ExecStart = ''
+          ${pkgs.bash}/bin/bash -c "exec ${pkgs.jdk8}/bin/java -Xms2048M -Xmx16384M -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=40 -XX:G1ReservePercent=10 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:G1HeapRegionSize=8M -jar ./spigot-1.6.4-*.jar nogui"
+        '';
+        RestartSec = 5;
+        Restart = "no";
+      };
+    };
   };
 
   networking.firewall.allowedTCPPorts = [
