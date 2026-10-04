@@ -43,6 +43,7 @@ let
         { wanPort = 25565; lanPort = 25565; lanIp = "192.168.6.7"; proto = "tcp"; }
         { wanPort = 35565; lanPort = 35565; lanIp = "192.168.6.7"; proto = "tcp"; }
         { wanPort = 35568; lanPort = 35568; lanIp = "192.168.6.7"; proto = "tcp"; }
+        { wanPort = 45565; lanPort = 45565; lanIp = "192.168.6.7"; proto = "tcp"; }
       ];
     };
 
