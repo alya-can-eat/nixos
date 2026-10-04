@@ -120,6 +120,8 @@
         minecraftserver-log-minecraft_b173 = "cat /data/minecraft_b173/server.log";
         minecraftserver-journal-minecraft_b173_viaproxy = "journalctl -fu minecraft_b173_viaproxy-server.service";
         minecraftserver-log-minecraft_b173_viaproxy = "cat /data/minecraft_b173/ViaProxy/logs/latest.log";
+        minecraftserver-journal-minecraft = "journalctl -fu minecraft_r164-server.service";
+        minecraftserver-log-minecraft = "cat /data/minecraft_r164/logs/latest.log";
       };
     };
   };
