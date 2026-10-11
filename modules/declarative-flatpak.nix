@@ -7,7 +7,10 @@
   ];
 
   services = {
-    flatpak.enable = true;
+    flatpak = {
+      enable = true;
+      runWithoutGui = false;
+    };
   };
 
 }
