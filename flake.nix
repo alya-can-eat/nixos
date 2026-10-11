@@ -34,6 +34,7 @@
         ./modules/datetime.nix
         ./modules/services.nix
         ./modules/networking.nix
+        ./modules/networking/tunnels.nix
         ./users/alya/user.nix
         ./modules/nix.nix
         ./modules/locales.nix
