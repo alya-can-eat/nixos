@@ -8,7 +8,9 @@
   ];
 
   services = {
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+    };
     dbus.enable = true;
     libinput.enable = true;
     udev = {
