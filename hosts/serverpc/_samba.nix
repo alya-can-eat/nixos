@@ -32,7 +32,7 @@
           "directory mask" = "0755";
           "force user" = "sambauser";
           "force group" = "sambagroup";
-          "valid users" = "sambaalya, sambapasquala, sambanextcloud";
+          "valid users" = "sambaalya, sambapasquala, sambaisi, sambanextcloud";
           "vfs objects" = "virusfilter recycle";
           "recycle:repository" = ".recycle";
           "recycle:keeptree" = "yes";
@@ -102,6 +102,14 @@
         createHome = false;
         shell = "${pkgs.shadow}/bin/nologin";
         uid = 2002;
+        group = "sambagroup";
+      };
+      sambaisi = {
+        isSystemUser = true;
+        home = "/var/empty";
+        createHome = false;
+        shell = "${pkgs.shadow}/bin/nologin";
+        uid = 2003;
         group = "sambagroup";
       };
       sambanextcloud = {
