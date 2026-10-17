@@ -62,6 +62,7 @@
           ./modules/packages/tex.nix
           ./modules/packages/steam.nix
           ./modules/declarative-flatpak.nix
+          ./modules/networking/tunnels.nix
           {
             networking.hostName = "aperture";
             system.stateVersion = "25.11";
@@ -79,6 +80,7 @@
           ./modules/graphical/niri.nix
           ./modules/packages/steam.nix
           ./modules/declarative-flatpak.nix
+          ./modules/networking/tunnels.nix
           {
             networking.hostName = "wheatley";
             system.stateVersion = "26.05";
