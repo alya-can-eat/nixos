@@ -34,7 +34,6 @@
         ./modules/datetime.nix
         ./modules/services.nix
         ./modules/networking.nix
-        ./modules/networking/tunnels.nix
         ./users/alya/user.nix
         ./modules/nix.nix
         ./modules/locales.nix
@@ -63,6 +62,7 @@
           ./modules/packages/tex.nix
           ./modules/packages/steam.nix
           ./modules/declarative-flatpak.nix
+          ./modules/networking/tunnels.nix
           {
             networking.hostName = "aperture";
             system.stateVersion = "25.11";
@@ -80,6 +80,7 @@
           ./modules/graphical/niri.nix
           ./modules/packages/steam.nix
           ./modules/declarative-flatpak.nix
+          ./modules/networking/tunnels.nix
           {
             networking.hostName = "wheatley";
             system.stateVersion = "26.05";
