@@ -79,8 +79,30 @@
         StandardError = "tty";
         TTYPath = "/dev/tty11";
         ExecStart = ''
-          ${pkgs.bash}/bin/bash -c "exec ${pkgs.jdk8}/bin/java -Xms2048M -Xmx16384M -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=40 -XX:G1ReservePercent=10 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:G1HeapRegionSize=8M -jar ./spigot-1.6.4-*.jar nogui"
+          ${pkgs.bash}/bin/bash -c "exec ${pkgs.jdk8}/bin/java -Xms2048M -Xmx16384M -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=40 -XX:G1ReservePercent=10 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:G1HeapRegionSize=8M -jar ./craftbukkit-1.6.4-*.jar nogui"
         '';
+        RestartSec = 5;
+        Restart = "no";
+      };
+    };
+    minecraft_a11201-server = {
+      description = "Minecraft Alpha 1.1.2_01 Server";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "minecraftuser";
+        Group = "minecraftgroup";
+        WorkingDirectory = "/data/minecraft_a11201";
+        TimeoutStopSec = "180s";
+        SuccessExitStatus = "143";
+        StandardInput = "tty";
+        StandardOutput = "tty";
+        StandardError = "tty";
+        TTYPath = "/dev/tty12";
+        ExecStart = ''
+          ${pkgs.bash}/bin/bash -c "exec ${pkgs.jdk8}/bin/java -Xms2048M -Xmx16384M -Djline.terminal=jline.UnsupportedTerminal -Dterminal.jline=false -Dterminal.ansi=false -jar Minecraft_Mod*.jar nogui"
+        '';
+        Environment = "PATH=${pkgs.bash}/bin:${pkgs.coreutils}/bin";
         RestartSec = 5;
         Restart = "no";
       };
@@ -89,8 +111,13 @@
 
   networking.firewall.allowedTCPPorts = [
     25565 # minecraft
+    25585 # dynmap
     35565 # minecraft_b173
     35568 # minecraft_b173_ViaProxy
+    35585 # dynmap_b173
+    # 45565 # minecraft_r164
+    55565 # minecraft_a11201
+    # 55568 # minecraft_a11201_ViaProxy
   ];
 
   users = {
