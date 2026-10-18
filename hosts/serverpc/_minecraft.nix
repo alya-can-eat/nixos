@@ -85,6 +85,23 @@
         Restart = "no";
       };
     };
+    minecraft_r164_viaproxy-server = {
+      description = "Minecraft 1.6.4 Server ViaProxy";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "minecraftuser";
+        Group = "minecraftgroup";
+        WorkingDirectory = "/data/minecraft_r164/ViaProxy";
+        TimeoutStopSec = "180s";
+        SuccessExitStatus = "143";
+        ExecStart = ''
+          ${pkgs.bash}/bin/bash -c "exec ${pkgs.jdk21}/bin/java -jar ViaProxy*.jar config viaproxy.yml"
+        '';
+        Restart = "no";
+        RestartSec = 5;
+      };
+    };
     minecraft_a11201-server = {
       description = "Minecraft Alpha 1.1.2_01 Server";
       after = [ "network.target" ];
