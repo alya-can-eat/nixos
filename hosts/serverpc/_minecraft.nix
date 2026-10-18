@@ -107,6 +107,23 @@
         Restart = "no";
       };
     };
+    minecraft_a11201_viaproxy-server = {
+      description = "Minecraft Alpha 1.1.2_01 Server ViaProxy";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "minecraftuser";
+        Group = "minecraftgroup";
+        WorkingDirectory = "/data/minecraft_a11201/ViaProxy";
+        TimeoutStopSec = "180s";
+        SuccessExitStatus = "143";
+        ExecStart = ''
+          ${pkgs.bash}/bin/bash -c "exec ${pkgs.jdk21}/bin/java -jar ViaProxy*.jar config viaproxy.yml"
+        '';
+        Restart = "no";
+        RestartSec = 5;
+      };
+    };
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -117,7 +134,7 @@
     35585 # dynmap_b173
     # 45565 # minecraft_r164
     55565 # minecraft_a11201
-    # 55568 # minecraft_a11201_ViaProxy
+    55568 # minecraft_a11201_ViaProxy
   ];
 
   users = {

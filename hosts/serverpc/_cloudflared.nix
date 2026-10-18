@@ -22,6 +22,7 @@
           "dynmap-b173.tschudibacon.com" = "http://localhost:35585";
 #          "minecraft-r164.tschudibacon.com" = "tcp://localhost:45568";
 #          "dynmap-r164.tschudibacon.com" = "http://localhost:45585";
+          "minecraft-a11201.tschudibacon.com" = "tcp://localhost:55568";
         };
 
         default = "http_status:404";
