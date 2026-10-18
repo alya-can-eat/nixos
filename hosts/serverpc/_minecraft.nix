@@ -166,6 +166,10 @@
         minecraftserver-log-minecraft_b173_viaproxy = "cat /data/minecraft_b173/ViaProxy/logs/latest.log";
         minecraftserver-journal-minecraft_r164 = "journalctl -fu minecraft_r164-server.service";
         minecraftserver-log-minecraft_r164 = "cat /data/minecraft_r164/logs/latest.log";
+        minecraftserver-journal-minecraft_a11201 = "journalctl -fu minecraft_a11201-server.service";
+        minecraftserver-log-minecraft_a11201 = "cat /data/minecraft_a11201/server.log";
+        minecraftserver-journal-minecraft_a11201_viaproxy = "journalctl -fu minecraft_a11201_viaproxy-server.service";
+        minecraftserver-log-minecraft_a11201_viaproxy = "cat /data/minecraft_a11201/ViaProxy/logs/latest.log";
       };
     };
   };
