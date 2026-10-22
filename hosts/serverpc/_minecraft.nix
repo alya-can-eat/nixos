@@ -85,6 +85,23 @@
         Restart = "no";
       };
     };
+    minecraft_r164_viaproxy-server = {
+      description = "Minecraft 1.6.4 Server ViaProxy";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "minecraftuser";
+        Group = "minecraftgroup";
+        WorkingDirectory = "/data/minecraft_r164/ViaProxy";
+        TimeoutStopSec = "180s";
+        SuccessExitStatus = "143";
+        ExecStart = ''
+          ${pkgs.bash}/bin/bash -c "exec ${pkgs.jdk21}/bin/java -jar ViaProxy*.jar config viaproxy.yml"
+        '';
+        Restart = "no";
+        RestartSec = 5;
+      };
+    };
     minecraft_a11201-server = {
       description = "Minecraft Alpha 1.1.2_01 Server";
       after = [ "network.target" ];
@@ -132,7 +149,9 @@
     35565 # minecraft_b173
     35568 # minecraft_b173_ViaProxy
     35585 # dynmap_b173
-    # 45565 # minecraft_r164
+    45565 # minecraft_r164
+    45568 # minecraft_r164_ViaProxy
+    45585 # dynmap_r164
     55565 # minecraft_a11201
     55568 # minecraft_a11201_ViaProxy
   ];
@@ -160,12 +179,17 @@
       shellAliases = {
         minecraftserver-journal-minecraft = "journalctl -fu minecraft-server.service";
         minecraftserver-log-minecraft = "cat /data/minecraft/logs/latest.log";
+
         minecraftserver-journal-minecraft_b173 = "journalctl -fu minecraft_b173-server.service";
         minecraftserver-log-minecraft_b173 = "cat /data/minecraft_b173/server.log";
         minecraftserver-journal-minecraft_b173_viaproxy = "journalctl -fu minecraft_b173_viaproxy-server.service";
         minecraftserver-log-minecraft_b173_viaproxy = "cat /data/minecraft_b173/ViaProxy/logs/latest.log";
+
         minecraftserver-journal-minecraft_r164 = "journalctl -fu minecraft_r164-server.service";
         minecraftserver-log-minecraft_r164 = "cat /data/minecraft_r164/logs/latest.log";
+        minecraftserver-journal-minecraft_r164_viaproxy = "journalctl -fu minecraft_r164_viaproxy-server.service";
+        minecraftserver-log-minecraft_r164_viaproxy = "cat /data/minecraft_r164/ViaProxy/logs/latest.log";
+
         minecraftserver-journal-minecraft_a11201 = "journalctl -fu minecraft_a11201-server.service";
         minecraftserver-log-minecraft_a11201 = "cat /data/minecraft_a11201/server.log";
         minecraftserver-journal-minecraft_a11201_viaproxy = "journalctl -fu minecraft_a11201_viaproxy-server.service";
