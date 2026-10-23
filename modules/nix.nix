@@ -16,12 +16,10 @@
       keep-going = true;
       sandbox = true;
     };
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
   };
   
-  systemd.services.nix-daemon.serviceConfig = {
-    Nice = lib.mkForce 15;
-    IOSchedulingClass = lib.mkForce "idle";
-  };
   
   ### ccache to speed up builds ### https://wiki.nixos.org/wiki/CCache
   programs.ccache = {
