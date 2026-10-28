@@ -23,24 +23,24 @@
           RestartSec = 5;
         };
       };
-      tunnel_minecraft-r164-tschudibacon = {
-        description = "Cloudflared TCP tunnel for Tschudibacon Minecraft 1.6.4";
-        wantedBy = [ "default.target" ];
-        serviceConfig = {
-          ExecStart = "${pkgs.cloudflared}/bin/cloudflared access tcp --hostname minecraft-r164.tschudibacon.com --url 127.0.0.74:25565";
-          Restart = "on-failure";
-          RestartSec = 5;
-        };
-      };
-      tunnel_minecraft-a11201-tschudibacon = {
-        description = "Cloudflared TCP tunnel for Tschudibacon Minecraft Alpha 1.1.2_01";
-        wantedBy = [ "default.target" ];
-        serviceConfig = {
-          ExecStart = "${pkgs.cloudflared}/bin/cloudflared access tcp --hostname minecraft-a11201.tschudibacon.com --url 127.0.0.75:25565";
-          Restart = "on-failure";
-          RestartSec = 5;
-        };
-      };
+#      tunnel_minecraft-r164-tschudibacon = {
+#        description = "Cloudflared TCP tunnel for Tschudibacon Minecraft 1.6.4";
+#        wantedBy = [ "default.target" ];
+#        serviceConfig = {
+#          ExecStart = "${pkgs.cloudflared}/bin/cloudflared access tcp --hostname minecraft-r164.tschudibacon.com --url 127.0.0.74:25565";
+#          Restart = "on-failure";
+#          RestartSec = 5;
+#        };
+#      };
+#      tunnel_minecraft-a11201-tschudibacon = {
+#        description = "Cloudflared TCP tunnel for Tschudibacon Minecraft Alpha 1.1.2_01";
+#        wantedBy = [ "default.target" ];
+#        serviceConfig = {
+#          ExecStart = "${pkgs.cloudflared}/bin/cloudflared access tcp --hostname minecraft-a11201.tschudibacon.com --url 127.0.0.75:25565";
+#          Restart = "on-failure";
+#          RestartSec = 5;
+#        };
+#      };
     };
   };
 
@@ -48,8 +48,8 @@
     hosts = {
       "127.0.0.72" = [ "minecraft.tschudibacon.mc" ];
       "127.0.0.73" = [ "minecraft-b173.tschudibacon.mc" ];
-      "127.0.0.74" = [ "minecraft-r164.tschudibacon.mc" ];
-      "127.0.0.75" = [ "minecraft-a11201.tschudibacon.mc" ];
+#      "127.0.0.74" = [ "minecraft-r164.tschudibacon.mc" ];
+#      "127.0.0.75" = [ "minecraft-a11201.tschudibacon.mc" ];
     };
   };
 
