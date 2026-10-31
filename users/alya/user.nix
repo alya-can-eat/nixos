@@ -15,6 +15,7 @@
       "flatpak"
       "docker"
       "adbusers"
+      "dialout"
     ];
     uid = 1000;
     packages = with pkgs; [  ];
