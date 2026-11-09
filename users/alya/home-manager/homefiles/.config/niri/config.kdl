@@ -99,6 +99,13 @@ output "HP Inc. HP Z24n G2 6CM8180H1J" { // FHNW Windisch Geb. 1, 3. Stock Bilds
     position x=-1536 y=-300
 }
 
+output "HP Inc. HP Z27u G3 CN42242B10" { // FHNW Windisch Geb. 2, PC Raum 1. Stock Bildschirm HP
+    mode "2560x1440@59.951"
+    scale 2
+    transform "normal"
+    position x=-1536 y=-300
+}
+
 
 layout {
     background-color "transparent"

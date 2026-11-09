@@ -16,6 +16,7 @@ in
     packages = with pkgs; [
       xournalpp
       onlyoffice-desktopeditors
+      libreoffice
       texstudio
       krita
       lutris
