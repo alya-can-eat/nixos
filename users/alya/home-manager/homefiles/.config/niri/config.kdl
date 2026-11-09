@@ -103,7 +103,7 @@ output "HP Inc. HP Z27u G3 CN42242B10" { // FHNW Windisch Geb. 2, PC Raum 1. Sto
     mode "2560x1440@59.951"
     scale 1.5
     transform "normal"
-    position x=-1707 y=-500
+    position x=-1707 y=-200
 }
 
 
