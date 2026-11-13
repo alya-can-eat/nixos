@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./keyboard.ime/_fcitx.nix
+    ./keyboard/ime/_fcitx.nix
   ];
 
   ### keymap ###
