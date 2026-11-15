@@ -8,7 +8,8 @@
       enable = true;
       configFile = klipper/printer_voxelab-aquila.cfg;
       mutableConfig = true;
-      configDir = "/data/klipper";
+#      configDir = "/data/klipper";
+      configDir = "${config.services.moonraker.stateDir}/config";
       user = "moonraker";
       group = "moonraker";
       firmwares = {
@@ -38,7 +39,8 @@
         };
       };
       allowSystemControl = false;
-      stateDir = "/persist/var/lib/moonraker";
+#      stateDir = "/persist/var/lib/moonraker";
+      stateDir = "/data/moonraker";
       user = "moonraker";
       group = "moonraker";
     };
@@ -67,18 +69,30 @@
     klipper = {
       restartIfChanged = false;
     };
+    
+    klipper-firmware-copy = {
+      wantedBy = [ "multi-user.target" ];
+      unitConfig.RequiresMountsFor = "/data";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        install -D -m 0644 -o moonraker -g moonraker \
+          ${config.services.klipper.firmwares.mcu.package}/klipper.bin \
+          /data/moonraker/firmware/klipper.bin
+      '';
+    };
   };
 
-  system.activationScripts.klipperFirmwareLink = ''
-    mkdir -p /persist/var/lib/klipper/firmware
-    ln -sfn ${config.services.klipper.firmwares.mcu.package}/klipper.bin /persist/var/lib/klipper/firmware/klipper.bin
-  '';
+#  system.activationScripts.klipperFirmwareLink = ''
+#    mkdir -p /persist/var/lib/klipper/firmware
+#    ln -sfn ${config.services.klipper.firmwares.mcu.package}/klipper.bin /persist/var/lib/klipper/firmware/klipper.bin
+#  '';
 
-  systemd.tmpfiles.rules = [
-      "d /data/klipper 0775 moonraker moonraker - -"
-      "d /persist/var/lib/moonraker/logs 0755 moonraker moonraker -" # stop moonraker from crying like a baby
-      "d /persist/var/lib/moonraker/gcodes 0755 moonraker moonraker -"
-    ];
+#  systemd.tmpfiles.rules = [
+#      "d /data/klipper 0775 moonraker moonraker - -"
+#      "d /persist/var/lib/moonraker/logs 0755 moonraker moonraker -" # stop moonraker from crying like a baby
+#      "d /persist/var/lib/moonraker/gcodes 0755 moonraker moonraker -"
+#       "d /data/moonraker 0755 moonraker moonraker -"
+#    ];
 
   networking.firewall.allowedTCPPorts = [
     7126
