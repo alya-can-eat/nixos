@@ -111,7 +111,7 @@ in
               # ASCII art
               ${pkgs.coreutils}/bin/echo -e "${wipelogo}" > /dev/console
 
-              echo "MOUNTING ROOTFS..."
+              echo "MOUNTING ROOTFS..." > /dev/console
               mkdir /mnt > /dev/console
               # mount -t btrfs /dev/mapper/GLaDOS_lvm-GLaDOS_rootfs /mnt > /dev/console
               mount -t btrfs ${rootDevice} /mnt > /dev/console
@@ -138,7 +138,7 @@ in
                 mkdir /mnt/@/boot > /dev/console
                 mkdir /mnt/@/boot/efi > /dev/console
                 mkdir /mnt/@/mnt > /dev/console #optional but I like to have this directory :-)
-                ${pkgs.coreutils}/bin/echo "REMOVIMG 'WIPE ROOT ON BOOT' MARKER" > /dev/console
+                ${pkgs.coreutils}/bin/echo "REMOVING 'WIPE ROOT ON BOOT' MARKER" > /dev/console
                 rm /mnt/__WIPE_ROOT_ON_BOOT > /dev/console
                 ${pkgs.coreutils}/bin/echo "SYSTEM IS FRESH! :-D" > /dev/console
               else
