@@ -3,6 +3,8 @@
 
 
 let
+  rootDevice = config.fileSystems."/".device;
+
   wipelogo = ''
     \\t
     \\t
@@ -111,7 +113,8 @@ in
 
               echo "MOUNTING ROOTFS..."
               mkdir /mnt > /dev/console
-              mount -t btrfs /dev/mapper/GLaDOS_lvm-GLaDOS_rootfs /mnt > /dev/console
+              # mount -t btrfs /dev/mapper/GLaDOS_lvm-GLaDOS_rootfs /mnt > /dev/console
+              mount -t btrfs ${rootDevice} /mnt > /dev/console
 
               echo "CHECKING IF ROOT IS MARKED FOR DELETION..." > /dev/console
               if [ -f /mnt/__WIPE_ROOT_ON_BOOT ]; then
@@ -190,7 +193,8 @@ in
           # Service is stopped before shutdown
           ExecStop = pkgs.writeShellScript "wipe_root_on_next_boot" ''
             umount -Rq /mnt
-            mount -t btrfs /dev/mapper/GLaDOS_lvm-GLaDOS_rootfs /mnt
+            # mount -t btrfs /dev/mapper/GLaDOS_lvm-GLaDOS_rootfs /mnt
+            mount -t btrfs ${rootDevice} /mnt
             touch /mnt/__WIPE_ROOT_ON_BOOT
             umount /mnt
           '';
