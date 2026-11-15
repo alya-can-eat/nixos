@@ -35,13 +35,14 @@
 #      url = "path:./users/alya/home-manager/homefiles/.local/opt/wl_shimeji";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ### PS4 kernel (Aeolia/Belize; Baikal needs another branch) ###
+    ps4-kernel-aeolia-belize = {
+      url = "github:feeRnt/ps4-linux-12xx/6.15.4-aeolia-belize-crashniels";
+      flake = false;
+    };
   };
 
-  ### PS4 kernel (Aeolia/Belize; Baikal needs another branch) ###
-  ps4-kernel-aeolia-belize = {
-    url = "github:feeRnt/ps4-linux-12xx/6.15.4-aeolia-belize-crashniels";
-    flake = false;
-  };
 
   outputs = { self, nixpkgs, ... } @attrs: 
 
