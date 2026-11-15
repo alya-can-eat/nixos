@@ -9,7 +9,7 @@
   services = {
     flatpak = {
       enable = true;
-      runWithoutGui = false;
+      runWithoutGui = true;
     };
   };
 

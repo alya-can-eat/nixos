@@ -5,6 +5,7 @@
 {
   imports = [
     ./_partitions.nix
+    ./networking/_eduroam.nix
     ./specialisations/_fhnw.nix
   ];
 
