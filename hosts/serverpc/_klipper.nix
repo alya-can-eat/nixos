@@ -10,6 +10,7 @@
       mutableConfig = true;
 #      configDir = "/data/klipper";
       configDir = "${config.services.moonraker.stateDir}/config";
+      logFile = "${config.services.moonraker.stateDir}/logs/klippy.log";
       user = "moonraker";
       group = "moonraker";
       firmwares = {
