@@ -37,8 +37,10 @@
     };
 
     ### PS4 kernel (Aeolia/Belize; Baikal needs another branch) ###
+    nixpkgs-ps4.url = "github:nixos/nixpkgs/ac588ef1c914865dad517b337ea0eb9694a4021c"; # nixos-26.05
     ps4-kernel-aeolia-belize = {
-      url = "github:feeRnt/ps4-linux-12xx/6.15.4-aeolia-belize-crashniels";
+#      url = "github:feeRnt/ps4-linux-12xx/6.15.4-aeolia-belize-crashniels";
+      url = "github:feeRnt/ps4-linux-12xx/3cba9d4db59422c8fc4dd55a39958def042e8816"; # 6.15.4-aeolia-belize-crashniels
       flake = false;
     };
   };

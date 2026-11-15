@@ -109,12 +109,30 @@
         "type": "github"
       }
     },
+    "ps4-kernel-aeolia-belize": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793343948,
+        "narHash": "sha256-E8iERfZWp48v5lFXeHoDqpEIwFu+qez58DOoIIm4W1I=",
+        "owner": "feeRnt",
+        "repo": "ps4-linux-12xx",
+        "rev": "3cba9d4db59422c8fc4dd55a39958def042e8816",
+        "type": "github"
+      },
+      "original": {
+        "owner": "feeRnt",
+        "ref": "6.15.4-aeolia-belize-crashniels",
+        "repo": "ps4-linux-12xx",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "declarative-flatpak": "declarative-flatpak",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
+        "ps4-kernel-aeolia-belize": "ps4-kernel-aeolia-belize",
         "wl_shimeji": "wl_shimeji"
       }
     },
