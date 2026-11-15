@@ -7,7 +7,10 @@
     klipper = {
       enable = true;
       configFile = klipper/printer_voxelab-aquila.cfg;
-      group = "klipper";
+      mutableConfig = true;
+      configDir = "/data/klipper";
+      user = "moonraker";
+      group = "moonraker";
       firmwares = {
         mcu = {
           enable = true;
@@ -64,9 +67,6 @@
     klipper = {
       restartIfChanged = false;
     };
-    moonraker.serviceConfig = {
-      SupplementaryGroups = [ "klipper" ];
-    };
   };
 
   system.activationScripts.klipperFirmwareLink = ''
@@ -75,6 +75,7 @@
   '';
 
   systemd.tmpfiles.rules = [
+      "d /data/klipper 0775 moonraker moonraker - -"
       "d /persist/var/lib/moonraker/logs 0755 moonraker moonraker -" # stop moonraker from crying like a baby
       "d /persist/var/lib/moonraker/gcodes 0755 moonraker moonraker -"
     ];
