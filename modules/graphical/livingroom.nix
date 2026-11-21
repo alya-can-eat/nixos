@@ -102,7 +102,6 @@ in
     systemPackages = [
       kodi
       pkgs.vacuum-tube
-      session-switch
       tv-run
     ] ++ entries;
 
