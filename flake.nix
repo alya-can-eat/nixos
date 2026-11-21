@@ -35,6 +35,7 @@
 #      url = "path:./users/alya/home-manager/homefiles/.local/opt/wl_shimeji";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
 
 
   outputs = { self, nixpkgs, ... } @attrs: 
