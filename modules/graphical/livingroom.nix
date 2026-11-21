@@ -17,43 +17,6 @@ let
   steam = config.programs.steam.package;
   niri = config.programs.niri.package;
 
-  # usage: session-switch steam|niri
-  session-switch = pkgs.writeShellApplication {
-    name = "session-switch";
-    runtimeInputs = with pkgs; [
-      coreutils
-      systemd
-      util-linux
-    ];
-    text = ''
-      target="''${1:-}"
-      case "$target" in
-        steam|niri) ;;
-        *)
-          echo "usage: session-switch steam|niri" >&2
-          exit 1
-          ;;
-      esac
-
-      # same calls as the set-session script of the NixOS GDM module, but only for the current user
-      user_path="/org/freedesktop/Accounts/User$(id -u)"
-      busctl --system call org.freedesktop.Accounts "$user_path" org.freedesktop.Accounts.User SetSession s "$target"
-      busctl --system call org.freedesktop.Accounts "$user_path" org.freedesktop.Accounts.User SetSessionType s wayland
-
-      case "$target" in
-        niri)
-          # quitting Steam also ends gamescope and with it the session
-          # fallback: end the session after 30 s if Steam does not quit (e.g. stuck cloud sync)
-          session_id="''${XDG_SESSION_ID:-}"
-          setsid -f sh -c "${steam}/bin/steam -shutdown; sleep 30; [ -n '$session_id' ] && loginctl terminate-session '$session_id'" >/dev/null 2>&1
-          ;;
-        steam)
-          ${niri}/bin/niri msg action quit --skip-confirmation
-          ;;
-      esac
-    '';
-  };
-
   # apps started from Steam inherit the library path of the Steam runtime, which can break Nix-built apps
   tv-run = pkgs.writeShellScriptBin "tv-run" ''
     unset LD_LIBRARY_PATH
@@ -128,6 +91,7 @@ in
   programs = {
     steam.gamescopeSession = {
       enable = true; # adds the "steam" Wayland session (gamescope + Steam with -tenfoot)
+      args = [ "--force-composition" ];
     };
     firefox.policies = {
       EncryptedMediaExtensions.Enabled = true; # Widevine for Netflix, Disney+, ...
