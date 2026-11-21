@@ -109,47 +109,12 @@
         "type": "github"
       }
     },
-    "nixpkgs-ps4": {
-      "locked": {
-        "lastModified": 1794165970,
-        "narHash": "sha256-XuAV2cUwaod3Bt4XFVqiXz3v1w2ex16W6Sv4S7EWres=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "ac588ef1c914865dad517b337ea0eb9694a4021c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "ac588ef1c914865dad517b337ea0eb9694a4021c",
-        "type": "github"
-      }
-    },
-    "ps4-kernel-aeolia-belize": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1793343948,
-        "narHash": "sha256-E8iERfZWp48v5lFXeHoDqpEIwFu+qez58DOoIIm4W1I=",
-        "owner": "feeRnt",
-        "repo": "ps4-linux-12xx",
-        "rev": "3cba9d4db59422c8fc4dd55a39958def042e8816",
-        "type": "github"
-      },
-      "original": {
-        "owner": "feeRnt",
-        "repo": "ps4-linux-12xx",
-        "rev": "3cba9d4db59422c8fc4dd55a39958def042e8816",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "declarative-flatpak": "declarative-flatpak",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-ps4": "nixpkgs-ps4",
-        "ps4-kernel-aeolia-belize": "ps4-kernel-aeolia-belize",
         "wl_shimeji": "wl_shimeji"
       }
     },
