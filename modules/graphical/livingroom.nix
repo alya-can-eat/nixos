@@ -137,7 +137,13 @@ in
   services = {
     displayManager = {
       defaultSession = lib.mkForce "steam"; # niri.nix sets "niri"
-      gdm.autoLogin.delay = 2; # timed login: GDM logs in again after a session switch, not only once per boot
+      gdm = {
+        autoLogin.delay = 2; # timed login: GDM logs in again after a session switch, not only once per boot
+        settings.daemon = {
+          AutomaticLoginEnable = true;
+          AutomaticLogin = config.services.displayManager.autoLogin.user;
+        };
+      };
     };
     udisks2.enable = true; # Kodi uses it to detect inserted discs
   };
