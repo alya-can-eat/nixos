@@ -94,7 +94,8 @@
           ./modules/boot/bios.nix
           ./modules/impermanence.nix
           ./modules/graphical/niri.nix
-          ./modules/graphical/livingroom.nix
+          ./modules/graphical/gamescope.nix
+          ./modules/packages/tv.nix
           ./modules/packages/steam.nix
           ./modules/declarative-flatpak.nix
           ./modules/networking/tunnels.nix
