@@ -57,13 +57,6 @@ let
       comment = "Media center for the optical drive and local media";
     })
     (mkEntry {
-      name = "session-gaming";
-      desktopName = "Gaming Mode";
-      exec = "${session-switch}/bin/session-switch steam";
-      icon = "steam";
-      comment = "Switch to Steam Big Picture";
-    })
-    (mkEntry {
       name = "tv-poweroff";
       desktopName = "Shut Down";
       exec = "${pkgs.systemd}/bin/systemctl poweroff";
