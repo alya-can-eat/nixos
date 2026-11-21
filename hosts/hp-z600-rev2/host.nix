@@ -9,25 +9,33 @@
 
   boot.loader.grub.device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z9NB0KA08224V";
 
+
+  assertions = [
+    {
+      assertion = config.boot.kernelPackages.kernel.isLTS;
+      message = "wheatley: [MANUAL ASSERTION in hosts/hp-z600-rev2/host.nix] the NVIDIA 580 legacy driver only builds reliably against LTS kernels!";
+    }
+  ];
+
+
   ### NVIDIA GTX 1070 Ti ###
+  # Pascal only gets the 580 legacy branch (LTSB, supported until Aug 2028).
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
+    branch = "legacy_580";
     modesetting.enable = true;
     open = false;
     powerManagement.enable = true;
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580; # legacy driver branch 580 (last to support Pascal)
   };
 
   boot = {
     initrd.kernelModules = [
       "nvidia"
-      "nvidiafb"
       "nvidia-drm"
       "nvidia-uvm"
       "nvidia-modeset"
     ];
-    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
   ### NVIDIA (end) ###
 

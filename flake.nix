@@ -36,15 +36,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ### PS4 kernel (Aeolia/Belize; Baikal needs another branch) ###
-    nixpkgs-ps4.url = "github:nixos/nixpkgs/ac588ef1c914865dad517b337ea0eb9694a4021c"; # nixos-26.05
-    ps4-kernel-aeolia-belize = {
-#      url = "github:feeRnt/ps4-linux-12xx/6.15.4-aeolia-belize-crashniels";
-      url = "github:feeRnt/ps4-linux-12xx/3cba9d4db59422c8fc4dd55a39958def042e8816"; # 6.15.4-aeolia-belize-crashniels
-      flake = false;
-    };
-  };
-
 
   outputs = { self, nixpkgs, ... } @attrs: 
 
@@ -98,10 +89,11 @@
         hostModules = [
           ./hosts/hp-z600-rev2/host.nix
           ./hosts/hp-z600-rev2/hardware-configuration.nix
-          ./modules/boot/kernel/linux_zen.nix
+          ./modules/boot/kernel/linux_lts.nix # NVIDIA 580 legacy driver (Pascal) needs an LTS kernel
           ./modules/boot/bios.nix
           ./modules/impermanence.nix
           ./modules/graphical/niri.nix
+          ./modules/graphical/livingroom.nix
           ./modules/packages/steam.nix
           ./modules/declarative-flatpak.nix
           ./modules/networking/tunnels.nix
@@ -128,23 +120,6 @@
           ./modules/declarative-flatpak.nix
           {
             networking.hostName = "caroline";
-            system.stateVersion = "26.05";
-          }
-        ];
-      };
-      ### fatty (PS4): install from the PC with 'install/partition_ps4.bash', see hosts/ps4/host.nix ###
-      fatty = mkHost {
-        system = "x86_64-linux";
-        hostModules = [
-          ./hosts/ps4/host.nix
-          ./hosts/ps4/hardware-configuration.nix
-          ./modules/impermanence.nix
-          ./modules/graphical/niri.nix
-          ./modules/declarative-flatpak.nix
-          ./modules/packages/steam.nix
-          ./modules/networking/tunnels.nix
-          {
-            networking.hostName = "fatty";
             system.stateVersion = "26.05";
           }
         ];
