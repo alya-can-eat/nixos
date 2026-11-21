@@ -57,13 +57,6 @@ let
       comment = "Media center for the optical drive and local media";
     })
     (mkEntry {
-      name = "session-desktop";
-      desktopName = "Desktop Mode";
-      exec = "${session-switch}/bin/session-switch niri";
-      icon = "computer";
-      comment = "Switch to niri";
-    })
-    (mkEntry {
       name = "session-gaming";
       desktopName = "Gaming Mode";
       exec = "${session-switch}/bin/session-switch steam";
