@@ -27,7 +27,7 @@ let
     text = ''
       session_id="''${1:-}"
       # system path instead of the store path: this script ends up inside Steam's own environment
-      # (steam-session-select), a store reference to Steam would be a dependency loop
+      # (steamos-stubs), a store reference to Steam would be a dependency loop
       /run/current-system/sw/bin/steam -shutdown || true
       sleep 15
       if [ -n "$session_id" ]; then
@@ -72,11 +72,13 @@ let
     '';
   };
 
-  # Steam's own "Switch to Desktop" (power menu) calls this SteamOS script and waits until Steam gets ended
-  # newer clients call holo-session-select, older ones steamos-session-select (argument: plasma, gamescope, ...)
-  steam-session-select =
+  # With -steamos3, Steam calls these SteamOS helper scripts (inside its FHS environment, so they go into
+  # programs.steam.extraPackages). Same names as the stubs of Jovian-NixOS, reduced to what Steam needs here.
+  # Newer clients call holo-*, older ones steamos-*.
+  steamos-stubs =
     let
-      script = pkgs.writeShellApplication {
+      # Steam's own "Switch to Desktop" (power menu) calls this with plasma (or plasma-wayland, ...)
+      session-select = pkgs.writeShellApplication {
         name = "steamos-session-select";
         text = ''
           session="''${1:-gamescope}"
@@ -86,11 +88,57 @@ let
           esac
         '';
       };
+      # no SteamOS branches here, pretend to be on "main"
+      select-branch = pkgs.writeShellApplication {
+        name = "steamos-select-branch";
+        text = ''
+          case "''${1:-}" in
+            -c|-l) echo "main" ;;
+            *) ;;
+          esac
+        '';
+      };
+      # updates come from nixos-rebuild, 7 = "no update available"
+      update = pkgs.writeShellApplication {
+        name = "steamos-update";
+        text = "exit 7";
+      };
+      # no Steam Deck BIOS here, 0 = nothing to do
+      biosupdate = pkgs.writeShellApplication {
+        name = "jupiter-biosupdate";
+        text = "exit 0";
+      };
+      reboot = pkgs.writeShellApplication {
+        name = "holo-reboot";
+        runtimeInputs = [ pkgs.systemd ];
+        text = "exec systemctl reboot";
+      };
+      # Steam runs the helpers above with pkexec, they need no root here, so just run the command
+      # (the real pkexec cannot work inside Steam's sandbox anyway)
+      pkexec = pkgs.writeShellApplication {
+        name = "pkexec";
+        text = ''
+          args=()
+          for arg in "$@"; do
+            [ "$arg" = "--disable-internal-agent" ] || args+=("$arg")
+          done
+          exec "''${args[@]}"
+        '';
+      };
     in
-    pkgs.runCommand "steam-session-select" { } ''
-      mkdir -p $out/bin
-      ln -s ${script}/bin/steamos-session-select $out/bin/steamos-session-select
-      ln -s ${script}/bin/steamos-session-select $out/bin/holo-session-select
+    pkgs.runCommand "steamos-stubs" { } ''
+      mkdir -p $out/bin/steamos-polkit-helpers
+      ln -s ${session-select}/bin/steamos-session-select $out/bin/steamos-session-select
+      ln -s ${session-select}/bin/steamos-session-select $out/bin/holo-session-select
+      ln -s ${select-branch}/bin/steamos-select-branch $out/bin/steamos-select-branch
+      ln -s ${select-branch}/bin/steamos-select-branch $out/bin/holo-select-branch
+      ln -s ${update}/bin/steamos-update $out/bin/steamos-update
+      ln -s ${update}/bin/steamos-update $out/bin/holo-update
+      ln -s ${update}/bin/steamos-update $out/bin/steamos-polkit-helpers/steamos-update
+      ln -s ${biosupdate}/bin/jupiter-biosupdate $out/bin/jupiter-biosupdate
+      ln -s ${biosupdate}/bin/jupiter-biosupdate $out/bin/steamos-polkit-helpers/jupiter-biosupdate
+      ln -s ${reboot}/bin/holo-reboot $out/bin/holo-reboot
+      ln -s ${pkexec}/bin/pkexec $out/bin/pkexec
     '';
 
   # apps started from Steam inherit the library path of the Steam runtime, which can break Nix-built apps
@@ -160,10 +208,17 @@ in
   programs = {
     steam = {
       gamescopeSession = {
-        enable = true; # adds the "steam" Wayland session (gamescope + Steam with -tenfoot)
+        enable = true; # adds the "steam" Wayland session (gamescope + Steam Big Picture)
         args = [ "--force-composition" ]; # Fix mouse hiding blackscreen (Steam turns it off again, see force-composition.lua below)
+        # -steamos3: without it, "Switch to Desktop" in the power menu does nothing (Steam never calls
+        # steamos-session-select), with it Steam also calls the other SteamOS helpers (steamos-stubs)
+        steamArgs = [
+          "-steamos3"
+          "-gamepadui"
+          "-pipewire-dmabuf"
+        ];
       };
-      extraPackages = [ steam-session-select ]; # inside Steam's FHS environment, where Steam looks for it
+      extraPackages = [ steamos-stubs ]; # inside Steam's FHS environment, where Steam looks for them
     };
     firefox.policies = {
       EncryptedMediaExtensions.Enabled = true; # Widevine for Netflix, Disney+, ...
