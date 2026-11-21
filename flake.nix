@@ -90,7 +90,7 @@
         hostModules = [
           ./hosts/hp-z600-rev2/host.nix
           ./hosts/hp-z600-rev2/hardware-configuration.nix
-          ./modules/boot/kernel/linux_lts.nix # NVIDIA 580 legacy driver (Pascal) needs an LTS kernel
+          ./modules/boot/kernel/linux_lts.nix
           ./modules/boot/bios.nix
           ./modules/impermanence.nix
           ./modules/graphical/niri.nix
