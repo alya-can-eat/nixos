@@ -77,7 +77,7 @@ in
   programs = {
     steam.gamescopeSession = {
       enable = true; # adds the "steam" Wayland session (gamescope + Steam with -tenfoot)
-      args = [ "--force-composition" ];
+      args = [ "--force-composition" ]; # Fix mause hiding blackscreen
     };
     firefox.policies = {
       EncryptedMediaExtensions.Enabled = true; # Widevine for Netflix, Disney+, ...
