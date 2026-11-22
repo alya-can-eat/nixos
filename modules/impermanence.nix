@@ -162,6 +162,35 @@ in
     '';
 
     users.deps = ["etc_shadow"];
+
+    ### AFTER INSTALL FIXES ###
+    # /etc/machine-id links to /persist/etc/machine-id (see environment.etc), on a fresh install that is missing
+    # and boot gets stuck on dbus. Create it in /persist with a new random machine-id.
+    persist-machine-id = {
+      deps = [ "specialfs" ];
+      text = ''
+        if [ ! -s /persist/etc/machine-id ]; then
+          mkdir -p /persist/etc
+          ${pkgs.systemd}/bin/systemd-machine-id-setup --root=/persist
+        fi
+      '';
+    };
+ 
+    # impermanence symlinks persisted files that don't exist yet, but systemd refuses a symlinked
+    # credential.secret (breaks libvirtd). So create it in /persist before impermanence links it,
+    # then it gets bind mounted. The secret is tied to the machine-id, so that has to exist first.
+    persist-credential-secret = {
+      deps = [ "etc" "persist-machine-id" ];
+      text = ''
+        if [ ! -s /persist/var/lib/systemd/credential.secret ]; then
+          mkdir -p /persist/var/lib/systemd
+          rm -f /persist/var/lib/systemd/credential.secret # an empty leftover makes "setup" fail
+          SYSTEMD_CREDENTIAL_SECRET=/persist/var/lib/systemd/credential.secret ${pkgs.systemd}/bin/systemd-creds setup
+        fi
+      '';
+    };
+    persist-files.deps = [ "persist-credential-secret" ]; # impermanence's script that bind mounts / links the files
+    ### AFTER INSTALL FIXES (end) ###
   };
 
   systemd = {
@@ -202,7 +231,7 @@ in
       };
     };
     tmpfiles.rules = [
-      "d /persist/rootfs/etc/ 0755 root root -" # make sure /persist/etc exists
+      "d /persist/etc/ 0755 root root -" # make sure /persist/etc exists
       "d /persist/var/lib/private 0700 root root -" # Fix permissions for /var/lib/private
     ];
   };
